@@ -42,9 +42,7 @@ func (repo *ThreatIntelRepository) CreateIPIntel(apiResponse *models.AbuseIPDBAP
 			fmt.Println("Skipping duplicate report ID:", ipIntel.Reports[i].ID)
 		}
 	}
-
-	//indicates success
-	return nil
+	return nil //indicates success
 }
 
 func (repo *ThreatIntelRepository) GetIPIntel(ip string) (*models.AbuseIPDBResponse, error) {

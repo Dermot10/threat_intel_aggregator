@@ -17,15 +17,15 @@ func Homepage(c *gin.Context) {
 	})
 }
 
-type IntelHandler struct {
+type IPIntelHandler struct {
 	Repo *repositories.ThreatIntelRepository
 }
 
-func NewIntelHandler(repo *repositories.ThreatIntelRepository) *IntelHandler {
-	return &IntelHandler{Repo: repo}
+func NewIPIntelHandler(repo *repositories.ThreatIntelRepository) *IPIntelHandler {
+	return &IPIntelHandler{Repo: repo}
 }
 
-func (h *IntelHandler) CreateIntelHandler(c *gin.Context) {
+func (h *IPIntelHandler) CreateIPIntelHandler(c *gin.Context) {
 	var intel models.ThreatIntel
 
 	// bind json input data from the handler to intel struct which is created from the model
@@ -42,7 +42,7 @@ func (h *IntelHandler) CreateIntelHandler(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Threat intel successfully created", "intel": intel})
 }
 
-func (h *IntelHandler) GetIPIntelHandler(c *gin.Context) {
+func (h *IPIntelHandler) GetIPIntelHandler(c *gin.Context) {
 	ip := c.Param("ip")
 
 	if config.AbuseIPKey == "" {
@@ -69,7 +69,7 @@ func (h *IntelHandler) GetIPIntelHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *IntelHandler) GetStoredIPIntelHandler(c *gin.Context) {
+func (h *IPIntelHandler) GetStoredIPIntelHandler(c *gin.Context) {
 	ip := c.Param("ip")
 	log.Println("Handler called for IP:", ip)
 

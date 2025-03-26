@@ -32,10 +32,7 @@ func (repo *URLScanRepository) CreateURLIntel(apiResponse *models.UrlScanRespons
 		return err
 	}
 	fmt.Println("Inserted URL intel:", urlIntel.ID)
-
-	//indicates success
 	return nil
-
 }
 
 func (repo *URLScanRepository) GetURLIntel(url string) (*models.UrlScanResponse, error) {

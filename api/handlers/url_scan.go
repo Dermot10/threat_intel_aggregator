@@ -19,21 +19,19 @@ func NewURLHandler(repo *repositories.URLScanRepository) *UrlHandler {
 	return &UrlHandler{Repo: repo}
 }
 
-func (h *UrlHandler) GetURLIntelHandler(c *gin.Context) {
+func (h *UrlHandler) CreateURLIntelHandler(c *gin.Context) {
 	url := c.Query("url")
 
 	if config.UrlScanKey == "" {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "API key is missing"})
 		return
 	}
-
 	log.Println("API key found, calling service...")
 
 	if url == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "URL parameter is required"})
 		return
 	}
-
 	log.Println("Received URL:", url)
 
 	response, err := services.PostUrlIntelService(url, config.UrlScanKey)
@@ -44,7 +42,6 @@ func (h *UrlHandler) GetURLIntelHandler(c *gin.Context) {
 	}
 
 	apiResponse := *response
-
 	if err := h.Repo.CreateURLIntel(&apiResponse); err != nil {
 		log.Println("Error saving to DB:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save URL scan"})

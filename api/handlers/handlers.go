@@ -9,16 +9,20 @@ import (
 // Central routing function for main
 func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
 	IpRepo := repositories.NewThreatIntelRepository(db)
-	IpHandler := NewIntelHandler(IpRepo)
+	IpHandler := NewIPIntelHandler(IpRepo)
 
 	UrlRepo := repositories.NewUrlIntelRepository(db)
 	UrlHandler := NewURLHandler(UrlRepo)
 
+	DNSRepo := repositories.NewDNSIntelRepository(db)
+	DNSHandler := NewDNSHandler(DNSRepo)
+
 	router.GET("/", Homepage)
 	router.GET("/intel/:ip", IpHandler.GetIPIntelHandler)
 	router.GET("/stored-intel/:ip", IpHandler.GetStoredIPIntelHandler)
-	router.POST("/url-scan", UrlHandler.GetURLIntelHandler)
+	router.POST("/url-scan", UrlHandler.CreateURLIntelHandler)
 	router.GET("/stored-url/*url", UrlHandler.GetStoredUrlIntelHandler)
-	router.POST("/threat-intel", IpHandler.CreateIntelHandler)
+	router.POST("/threat-intel", IpHandler.CreateIPIntelHandler)
+	router.GET("/domain-intel/:domain", DNSHandler.CreateDNSIntelHandler)
 
 }
