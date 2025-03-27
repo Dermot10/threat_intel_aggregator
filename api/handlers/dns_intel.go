@@ -44,3 +44,14 @@ func (h *DNSIntelHandler) CreateDNSIntelHandler(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "DNS Intel record created", "id": apiResponse.ID})
 }
+
+func (h *DNSIntelHandler) GetStoredDNSIntelHandler(c *gin.Context) {
+	host := c.Param("host")
+	log.Println("Handler called for host:", host)
+	data, err := h.Repo.GetDNSIntel(host)
+	if err != nil {
+		log.Println("Error retrieving data from DB", err)
+		return
+	}
+	c.JSON(http.StatusOK, data)
+}

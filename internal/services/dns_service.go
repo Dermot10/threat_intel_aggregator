@@ -45,8 +45,6 @@ func GetDNSIntelService(domain, apikey string) (*models.DNSIntelResponse, error)
 		return nil, fmt.Errorf("failed to read response: %w", err)
 	}
 
-	// fmt.Println("Raw Request Body:", string(body))
-
 	var data models.DNSIntelResponse
 	err = json.Unmarshal(body, &data)
 	if err != nil {

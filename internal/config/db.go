@@ -27,7 +27,8 @@ func InitDB() *gorm.DB { //explicitly returns the connection object
 		&models.Report{},
 		&models.UrlScanResponse{},
 		&models.UrlScanOptions{},
-		&models.DNSIntelResponse{})
+		&models.DNSIntelResponse{},
+	)
 
 	if err != nil {
 		log.Fatal("Failed to migrate database: ", err)

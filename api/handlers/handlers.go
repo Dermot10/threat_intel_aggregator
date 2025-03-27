@@ -19,10 +19,10 @@ func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
 
 	router.GET("/", Homepage)
 	router.GET("/intel/:ip", IpHandler.GetIPIntelHandler)
-	router.GET("/stored-intel/:ip", IpHandler.GetStoredIPIntelHandler)
+	router.GET("/stored-ipintel/:ip", IpHandler.GetStoredIPIntelHandler)
 	router.POST("/url-scan", UrlHandler.CreateURLIntelHandler)
-	router.GET("/stored-url/*url", UrlHandler.GetStoredUrlIntelHandler)
+	router.GET("/stored-urlintel/*url", UrlHandler.GetStoredUrlIntelHandler)
 	router.POST("/threat-intel", IpHandler.CreateIPIntelHandler)
 	router.GET("/domain-intel/:domain", DNSHandler.CreateDNSIntelHandler)
-
+	router.GET("/stored-domainintel/:host", DNSHandler.GetStoredDNSIntelHandler)
 }
